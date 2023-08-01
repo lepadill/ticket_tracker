@@ -1,2 +1,2 @@
 # ticket_tracker
-Daily ticket tracker creation tool.
+Ticket tracker creation tool for EGS nodes.
