@@ -7,11 +7,7 @@ class generate_tracker:
         self.sysman = '/usr/bin/python3 -m Sysman.sysman '
         self.workbook = xlsxwriter.Workbook('tracker.xlsx')
         self.worksheet = self.workbook.add_worksheet()
-        self.host = os.popen('hostname').read()
-        self.h = os.system('hostname')
-        print('SAAA '+self.h)
-        print(self.host)
-
+        
     '''
     def select_server(self):
         self.host = os.popen('hostname').read()
@@ -21,6 +17,11 @@ class generate_tracker:
     '''
         
     def get_user_data(self):
+        self.host = os.popen('hostname').read()
+        self.h = os.system('hostname')
+        print('SAAA '+self.h)
+        print(self.host)
+
         self.logname = os.popen('env | grep LOGNAME').read().replace('\n','')
         self.logname = self.logname.split('=')
         self.user = self.logname[1]
