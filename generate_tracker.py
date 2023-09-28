@@ -7,13 +7,13 @@ class generate_tracker:
         self.sysman = '/usr/bin/python3 -m Sysman.sysman '
         self.workbook = xlsxwriter.Workbook('tracker.xlsx')
         self.worksheet = self.workbook.add_worksheet()
-    
+    '''
     def select_server(self):
         self.host = os.popen('hostname').read()
         print(self.host)
         #return self.host
         #print(self.host)
-    
+    '''
         
     def get_user_data(self):
         self.logname = os.popen('env | grep LOGNAME').read().replace('\n','')
@@ -345,17 +345,19 @@ class generate_tracker:
 
 def main():
     tracker = generate_tracker()
-    host = tracker.select_server()
+    host = os.popen('hostname').read()
     print(host)
-    #print(host)
-    #User, Pool, BkcChecker = tracker.get_user_data()
-    #Nodes = tracker.get_nodes(Pool)
+    print(host)
+    print(host)
+    print(host)
+    User, Pool, BkcChecker = tracker.get_user_data()
+    Nodes = tracker.get_nodes(Pool)
     
-    #SSH_Status = tracker.add_nodes_to_known_hosts(User,Nodes)
-    #print(SSH_Status)
-    #BKC_Checker = tracker.get_checker(User,BkcChecker)
+    SSH_Status = tracker.add_nodes_to_known_hosts(User,Nodes)
+    print(SSH_Status)
+    BKC_Checker = tracker.get_checker(User,BkcChecker)
 
-    #Get_node_info = tracker.get_info(Nodes,User,SSH_Status)
-    #Compare = tracker.compare_info()
+    Get_node_info = tracker.get_info(Nodes,User,SSH_Status)
+    Compare = tracker.compare_info()
 if __name__ == "__main__":
     main() 
