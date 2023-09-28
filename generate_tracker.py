@@ -8,6 +8,9 @@ class generate_tracker:
         self.workbook = xlsxwriter.Workbook('tracker.xlsx')
         self.worksheet = self.workbook.add_worksheet()
         self.host = os.popen('hostname').read()
+        self.h = os.system('hostname')
+        print('SAAA '+self.h)
+        print(self.host)
 
     '''
     def select_server(self):
