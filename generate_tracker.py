@@ -346,6 +346,7 @@ class generate_tracker:
 def main():
     tracker = generate_tracker()
     generate_tracker.select_server()
+    '''
     #print(host)
     #User, Pool, BkcChecker = tracker.get_user_data()
     #Nodes = tracker.get_nodes(Pool)
@@ -356,5 +357,6 @@ def main():
 
     #Get_node_info = tracker.get_info(Nodes,User,SSH_Status)
     #Compare = tracker.compare_info()
+    '''
 if __name__ == "__main__":
     main() 
