@@ -36,6 +36,7 @@ class generate_tracker:
         self.nodes = os.popen(f'{self.sysman} -P {str(ticket)} --print-names').read()
         self.nodes = self.nodes.replace('\n','').split(' ')
         self.nodes = sorted(self.nodes)
+        print('AAAAAAAAA')
         print(len(self.nodes))
         if len(self.nodes) == 1:
             print('Wrong pool name...')
