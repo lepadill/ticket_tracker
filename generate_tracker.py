@@ -7,6 +7,8 @@ class generate_tracker:
         self.sysman = '/usr/bin/python3 -m Sysman.sysman '
         self.workbook = xlsxwriter.Workbook('tracker.xlsx')
         self.worksheet = self.workbook.add_worksheet()
+        self.host = os.popen('hostname').read()
+
     '''
     def select_server(self):
         self.host = os.popen('hostname').read()
@@ -345,11 +347,13 @@ class generate_tracker:
 
 def main():
     tracker = generate_tracker()
+    '''
     host = os.popen('hostname').read()
     print(host)
     print(host)
     print(host)
     print(host)
+    '''
     User, Pool, BkcChecker = tracker.get_user_data()
     Nodes = tracker.get_nodes(Pool)
     
