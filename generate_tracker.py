@@ -8,7 +8,10 @@ class generate_tracker:
         self.workbook = xlsxwriter.Workbook('tracker.xlsx')
         self.worksheet = self.workbook.add_worksheet()
     
-    ddf
+    def select_server(self):
+        self.host = os.popen('hostname').read()
+        return self.host
+        #print(self.host)
     
         
     def get_user_data(self):
@@ -341,14 +344,16 @@ class generate_tracker:
 
 def main():
     tracker = generate_tracker()
-    User, Pool, BkcChecker = tracker.get_user_data()
-    Nodes = tracker.get_nodes(Pool)
+    host = generate_tracker.select_server()
+    print(host)
+    #User, Pool, BkcChecker = tracker.get_user_data()
+    #Nodes = tracker.get_nodes(Pool)
     
-    SSH_Status = tracker.add_nodes_to_known_hosts(User,Nodes)
-    print(SSH_Status)
-    BKC_Checker = tracker.get_checker(User,BkcChecker)
+    #SSH_Status = tracker.add_nodes_to_known_hosts(User,Nodes)
+    #print(SSH_Status)
+    #BKC_Checker = tracker.get_checker(User,BkcChecker)
 
-    Get_node_info = tracker.get_info(Nodes,User,SSH_Status)
-    Compare = tracker.compare_info()
+    #Get_node_info = tracker.get_info(Nodes,User,SSH_Status)
+    #Compare = tracker.compare_info()
 if __name__ == "__main__":
     main() 
