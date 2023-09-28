@@ -17,10 +17,6 @@ class generate_tracker:
     '''
         
     def get_user_data(self):
-        self.host = os.popen('hostname').read()
-        self.h = os.system('hostname')
-        print('SAAA '+self.h)
-        print(self.host)
 
         self.logname = os.popen('env | grep LOGNAME').read().replace('\n','')
         self.logname = self.logname.split('=')
@@ -47,6 +43,11 @@ class generate_tracker:
         return self.nodes
         
     def add_nodes_to_known_hosts(self,user,nodes):
+        self.host = os.popen('hostname').read()
+        self.h = os.system('hostname')
+        print('SAAA '+self.h)
+        print(self.host)
+        
         self.ssh_test = {}
         self.pwd = os.popen('pwd').read().replace('\n','')
         #print(self.pwd)
