@@ -10,7 +10,8 @@ class generate_tracker:
     
     def select_server(self):
         self.host = os.popen('hostname').read()
-        return self.host
+        print(self.host)
+        #return self.host
         #print(self.host)
     
         
@@ -344,8 +345,8 @@ class generate_tracker:
 
 def main():
     tracker = generate_tracker()
-    host = generate_tracker.select_server()
-    print(host)
+    generate_tracker.select_server()
+    #print(host)
     #User, Pool, BkcChecker = tracker.get_user_data()
     #Nodes = tracker.get_nodes(Pool)
     
