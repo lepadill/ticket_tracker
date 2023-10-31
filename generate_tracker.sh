@@ -8,7 +8,7 @@ export BKCCHECKER='$2'
 echo $1 > jira.txt
 echo $2 > bkc.txt
 if python -c "import tqdm, xlsxwriter" &> /dev/null; then
-    python x.py
+    python generate_tracker.py
 else
     pip install --proxy="http://proxy-us.intel.com:911" tqdm
     pip install --proxy="http://proxy-us.intel.com:911" xlsxwriter
