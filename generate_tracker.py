@@ -239,7 +239,7 @@ class generate_tracker:
                     if self.checker_data['bmcVersion'] == self.nodes_info[current_node]['bmcVersion']:
                         self.worksheet.write(row+1, 13, 'Done', text_format)
                     else:
-                        self.worksheet.write(row+1, 13, self.nodes_info[current_node]['bmcVersion'], text_format)                                        
+                        self.worksheet.write(row+1, 13, str(self.nodes_info[current_node]['bmcVersion']), text_format)                                        
                 except:
                     print(f'{current_node} BMC')
                 try:
@@ -262,7 +262,8 @@ class generate_tracker:
                     if self.checker_data['osUcode'] == self.nodes_info[current_node]['osUcode']:
                         self.worksheet.write(row+1, 12, 'Done', text_format)
                     else:
-                        self.worksheet.write(row+1, 12, self.nodes_info[current_node]['osUcode'], text_format)
+                        self.worksheet.write(row+1, 12, str(self.nodes_info[current_node]['osUcode']), text_format)
+                        print(str(self.nodes_info[current_node]['osUcode']))
                 except:
                     print(f'{current_node} UCODE')
                 
