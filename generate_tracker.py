@@ -112,6 +112,7 @@ class generate_tracker:
             self.header = ['Node ID','System in Maintenance Pool','SSH connection','Is the blue indicator LED ON?','ClearCMOS','Mem Config','Jumpers verified','get_straps','CPLD Main ','CPLD SECONDARY','Spr installed & Geometry enabled','BIOS: '+self.checker_data['bmcBiosVersion'],'uCode: '+self.checker_data['osUcode'],'BMC: '+self.checker_data['bmcVersion'],'System Booting?','BIOS knobs configured?','CFR update force','FPRR Bios knob disabled?','Columbiaville '+self.checker_data['osCLV1FwVersion'],'Columbiaville '+self.checker_data['osCLV1FwVersion'],'Remove M.2','Arbordale 2CV10026','Fortville v8.10','Boot order?','OS IMAGE '+self.checker_data['osKernelVersion'],'Boot override','Post_instal.sh?','Inventory Script?','Check Correct Mem Size?','VR FW Verified and Deploy Tracker updated?','BKCChecker?','is the blue indicator LED OFF?','Target Pool?','Username','Comments']
         for column, field in enumerate (self.header):
             self.worksheet.write(0, column, field, format)
+            print('Escribiendo HEADER')
         self.worksheet.set_column(0,0,15)
         #return self.workbook, self.xlsx
         
