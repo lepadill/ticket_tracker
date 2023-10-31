@@ -12,5 +12,5 @@ if python -c "import tqdm, xlsxwriter" &> /dev/null; then
 else
     pip install --proxy="http://proxy-us.intel.com:911" tqdm
     pip install --proxy="http://proxy-us.intel.com:911" xlsxwriter
-    python x.py
+    python generate_tracker.py
 fi
