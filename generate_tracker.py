@@ -7,14 +7,11 @@ class generate_tracker:
         self.sysman = '/usr/bin/python3 -m Sysman.sysman '
         self.workbook = xlsxwriter.Workbook('tracker.xlsx')
         self.worksheet = self.workbook.add_worksheet()
+        self.host = os.popen('hostname').read().replace('\n','')
+        self.gdc = 'login01.lab10b2.deacluster.intel.com'
+        self.admin_flex = 'a001admin001'
+        self.debug_flex = 'a001ivedebug001.fl30lcent1.deacluster.intel.com'
         
-    '''
-    def select_server(self):
-        self.host = os.popen('hostname').read()
-        print(self.host)
-        #return self.host
-        #print(self.host)
-    '''
         
     def get_user_data(self):
 
@@ -33,22 +30,21 @@ class generate_tracker:
     
     def get_nodes(self,ticket):
         #ticket = 'sjlealru'
-        self.nodes = os.popen(f'{self.sysman} -P {str(ticket)} --print-names').read()
+        if self.host == self.gdc:
+            print('Server GDC')
+            self.nodes = os.popen(f'{self.sysman} -P {str(ticket)} --print-names').read()
+        elif self.host == self.admin_flex:
+            print('Server Flex')
+            self.nodes = os.popen(f'ssh {self.debug_flex}  {self.sysman} -P {str(ticket)} --print-names').read()
         self.nodes = self.nodes.replace('\n','').split(' ')
         self.nodes = sorted(self.nodes)
-        print('AAAAAAAAA')
         print(len(self.nodes))
         if len(self.nodes) == 1:
             print('Wrong pool name...')
             quit()
         return self.nodes
         
-    def add_nodes_to_known_hosts(self,user,nodes):
-        self.host = os.popen('hostname').read()
-        self.h = os.system('hostname')
-        print('SAAA '+self.h)
-        print(self.host)
-        
+    def add_nodes_to_known_hosts(self,user,nodes):      
         self.ssh_test = {}
         self.pwd = os.popen('pwd').read().replace('\n','')
         #print(self.pwd)
@@ -243,7 +239,7 @@ class generate_tracker:
                     if self.checker_data['bmcVersion'] == self.nodes_info[current_node]['bmcVersion']:
                         self.worksheet.write(row+1, 13, 'Done', text_format)
                     else:
-                        self.worksheet.write(row+1, 13, 'Fail', text_format)                                        
+                        self.worksheet.write(row+1, 13, self.nodes_info[current_node]['bmcVersion'], text_format)                                        
                 except:
                     print(f'{current_node} BMC')
                 try:
@@ -266,7 +262,7 @@ class generate_tracker:
                     if self.checker_data['osUcode'] == self.nodes_info[current_node]['osUcode']:
                         self.worksheet.write(row+1, 12, 'Done', text_format)
                     else:
-                        self.worksheet.write(row+1, 12, 'Fail', text_format)
+                        self.worksheet.write(row+1, 12, self.nodes_info[current_node]['osUcode'], text_format)
                 except:
                     print(f'{current_node} UCODE')
                 
@@ -291,17 +287,17 @@ class generate_tracker:
                 if self.checker_data['osCLV1FwVersion'] == self.nodes_info[current_node]['osCLV1FwVersion']:
                     self.worksheet.write(row+1, 18, 'Done', text_format)
                 else:
-                    self.worksheet.write(row+1, 18, 'Fail', text_format)
+                    self.worksheet.write(row+1, 18, self.nodes_info[current_node]['osCLV1FwVersion'], text_format)
                 
                 if self.checker_data['osCLV2FwVersion'] == self.nodes_info[current_node]['osCLV2FwVersion']:
                     self.worksheet.write(row+1, 19, 'Done', text_format)
                 else:
-                    self.worksheet.write(row+1, 19, 'Fail', text_format)
+                    self.worksheet.write(row+1, 19, self.nodes_info[current_node]['osCLV2FwVersion'], text_format)
                 
                 if self.checker_data['osFTVFwVersion'] == self.nodes_info[current_node]['osFTVFwVersion']:
                     self.worksheet.write(row+1, 22, 'Done', text_format)
                 else:
-                    self.worksheet.write(row+1, 22, 'Fail', text_format)
+                    self.worksheet.write(row+1, 22, self.nodes_info[current_node]['osFTVFwVersion'], text_format)
                 if self.checker_data['osArbFwVersion'] == self.nodes_info[current_node]['osArbFwVersion']:
                     self.worksheet.write(row+1, 21, 'Done', text_format)
                 else:
@@ -353,21 +349,18 @@ class generate_tracker:
 
 def main():
     tracker = generate_tracker()
-    '''
-    host = os.popen('hostname').read()
-    print(host)
-    print(host)
-    print(host)
-    print(host)
-    '''
+    
+    
     User, Pool, BkcChecker = tracker.get_user_data()
     Nodes = tracker.get_nodes(Pool)
-    
+    BKC_Checker = tracker.get_checker(User,BkcChecker)
+
     SSH_Status = tracker.add_nodes_to_known_hosts(User,Nodes)
     print(SSH_Status)
-    BKC_Checker = tracker.get_checker(User,BkcChecker)
+    #BKC_Checker = tracker.get_checker(User,BkcChecker)
 
     Get_node_info = tracker.get_info(Nodes,User,SSH_Status)
     Compare = tracker.compare_info()
+    
 if __name__ == "__main__":
     main() 
